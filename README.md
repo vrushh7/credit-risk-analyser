@@ -1,193 +1,155 @@
-# 🏦 Credit Risk Prediction
+Credit Risk Prediction System
 
-> A production-quality machine learning system for predicting loan default probability — built for banking data science roles.
+A machine learning system that predicts loan default probability, built to demonstrate
+production-level data science skills for banking and finance roles.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4-orange)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.31-red)
-![License](https://img.shields.io/badge/license-MIT-green)
+Live Demo: https://YOUR_USERNAME-credit-risk-analyser.streamlit.app
 
----
+────────────────────────────────────────────────────────────────
 
-## 📋 Project Overview
+Dashboard Preview
 
-This project implements a complete end-to-end credit risk prediction pipeline — from raw data ingestion through EDA, feature engineering, model training, and business insight generation — culminating in an interactive Streamlit dashboard.
+Risk Assessment – High Risk
 
-**Use case**: Predict the probability that a loan applicant will default, enabling banks to make data-driven lending decisions.
+![High Risk](screenshots/dashboard_high_risk.png)
 
----
+Risk Assessment – Low Risk
 
-## 📁 Project Structure
+![Low Risk](screenshots/dashboard_low_risk.png)
 
-```
-credit-risk-prediction/
-├── data/                          # Raw dataset (download separately)
-│   └── german.data                # UCI German Credit dataset
-├── notebooks/
-│   └── credit_risk_analysis.ipynb # Full interactive walkthrough
-├── src/
-│   ├── data_loader.py             # Dataset loading & inspection
-│   ├── preprocessing.py           # Cleaning, encoding, feature engineering
-│   ├── eda.py                     # Visualisation suite (7 charts)
-│   ├── model_trainer.py           # Training + evaluation (3 models)
-│   └── business_insights.py      # Risk segmentation & policy recommendations
-├── models/                        # Saved trained models (.pkl)
-├── reports/                       # Auto-generated plots (PNG)
-├── dashboard/
-│   └── app.py                     # Streamlit interactive dashboard
-├── main.py                        # Pipeline entry point
-├── requirements.txt
-└── README.md
-```
+Borrower Comparison
 
----
+![Compare](screenshots/compare_borrowers.png)
 
-## 🗃 Dataset
+Comparison Results
 
-**German Credit Dataset** — UCI Machine Learning Repository  
-1,000 loan applicants with 20 features and binary target (default / no default).
+![Compare Results](screenshots/compare_borrowers_results.png)
 
-| Source | Link |
-|--------|------|
-| UCI Repository | https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data |
-| Kaggle mirror  | https://www.kaggle.com/datasets/uciml/german-credit |
+Affordability Calculator
 
-> **Note**: If no dataset file is provided, the pipeline auto-generates realistic synthetic data with the same schema.
+![Affordability](screenshots/affordability.png)
 
----
+Model Performance
 
-## ⚡ Quick Start
+![Performance](screenshots/model_performance.png)
 
-### 1. Clone & set up environment
+Feature Importance
 
-```bash
-git clone https://github.com/YOUR_USERNAME/credit-risk-prediction.git
-cd credit-risk-prediction
+![Features](screenshots/feature_importance.png)
 
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+────────────────────────────────────────────────────────────────
 
-### 2. (Optional) Download real dataset
+About the Project
 
-```bash
-# Place the downloaded german.data file in data/
-wget https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/german.data \
-     -O data/german.data
-```
+I built this to understand how banks actually assess credit risk using machine learning.
+The system takes a borrower's financial and personal details, runs them through a trained
+Gradient Boosting model, and outputs a default probability with a risk tier classification.
 
-### 3. Run the full pipeline
+The dataset used is the German Credit Dataset from the UCI Machine Learning Repository —
+1,000 real loan applicants with 20 features each.
 
-```bash
-# With synthetic data (no download needed)
-python main.py
+────────────────────────────────────────────────────────────────
 
-# With real dataset
-python main.py --data data/german.data
+Project Structure
 
-# Include interview prep notes
-python main.py --interview
+credit-risk-analyser/
+    main.py                         run the full pipeline from terminal
+    requirements.txt
+    README.md
+    src/
+        data_loader.py              loads and inspects the dataset
+        preprocessing.py            cleaning, encoding, feature engineering
+        eda.py                      exploratory data analysis charts
+        model_trainer.py            trains and evaluates all three models
+        business_insights.py        risk segmentation and policy recommendations
+    dashboard/
+        app.py                      streamlit dashboard
+    notebooks/
+        credit_risk_analysis.ipynb  step-by-step jupyter walkthrough
+    screenshots/
+        dashboard previews
 
-# Skip EDA for faster run
-python main.py --skip-eda
-```
+────────────────────────────────────────────────────────────────
 
-### 4. Launch the Streamlit dashboard
+How to Run It Locally
 
-```bash
-streamlit run dashboard/app.py
-```
+    git clone https://github.com/YOUR_USERNAME/credit-risk-analyser.git
+    cd credit-risk-analyser
 
-### 5. Open the Jupyter notebook
+    python -m venv venv
+    venv\Scripts\activate
+    pip install -r requirements.txt
 
-```bash
-jupyter notebook notebooks/credit_risk_analysis.ipynb
-```
+    python main.py
+    streamlit run dashboard/app.py
 
----
+────────────────────────────────────────────────────────────────
 
-## 🤖 Models
+Model Results
 
-| Model | Why it's used in banking |
-|-------|--------------------------|
-| **Logistic Regression** | Interpretable coefficients; regulatory compliance; calibrated probabilities |
-| **Random Forest** | Handles non-linear interactions; robust to outliers; stable feature importance |
-| **Gradient Boosting** | Highest accuracy; industry standard for credit scoring (GBDT family) |
+Three models were trained and compared on the same test set of 200 borrowers.
 
----
+    Logistic Regression     Accuracy 67.0%    ROC-AUC 0.718
+    Random Forest           Accuracy 69.5%    ROC-AUC 0.782
+    Gradient Boosting       Accuracy 71.5%    ROC-AUC 0.804  (selected)
 
-## 📊 Evaluation Metrics
+Gini Coefficient: 0.608 — passes the Basel III regulatory validation threshold of 0.50,
+meaning this model would be considered acceptable for real banking use.
 
-| Metric | Banking interpretation |
-|--------|------------------------|
-| Accuracy | Overall correctness (misleading with imbalanced data) |
-| Precision | Of all flagged defaults, how many actually defaulted? |
-| Recall | Of all real defaults, how many did we catch? (most important for risk) |
-| F1-Score | Harmonic balance of precision and recall |
-| ROC-AUC | Ranking ability; equivalent to Gini / 2 + 0.5 in Basel models |
+────────────────────────────────────────────────────────────────
 
----
+What the Dashboard Does
 
-## 📈 Generated Reports
+Tab 1 — Risk Assessment
+Enter a borrower's details and get an instant default probability score,
+a risk tier (Low / Medium / High), and a breakdown of which factors are
+driving the risk up or down.
 
-All plots are saved automatically to `reports/`:
+Tab 2 — Compare Borrowers
+Enter two borrower profiles side by side and see which one is lower risk,
+with a full comparison table and recommended action for each.
 
-| # | Chart |
-|---|-------|
-| 01 | Default distribution (bar + pie) |
-| 02 | Credit amount vs default (KDE + boxplot) |
-| 03 | Default rate by credit history |
-| 04 | Age distribution by default status |
-| 05 | Default rate by loan duration |
-| 06 | Feature correlation heatmap |
-| 07 | Default rate by savings account tier |
-| 08 | ROC curves (all models) |
-| 09 | Confusion matrices (all models) |
-| 10 | Feature importance (all models) |
-| 11 | Metric comparison dashboard |
-| 12 | Decision threshold analysis |
+Tab 3 — Affordability Calculator
+Input a borrower's income and existing debts to calculate their DTI ratio,
+monthly payment, and the maximum loan amount they can safely afford.
 
----
+Tab 4 — Model Performance
+Full evaluation report including ROC curve, confusion matrix, and an
+explanation of what each metric means in a banking context.
 
-## 🎯 Key Findings
+────────────────────────────────────────────────────────────────
 
-1. **Checking account status** is the strongest default predictor — borrowers with no account default at 2× the rate.
-2. **Credit history** is the second most important feature — critical account history → ~45% default rate.
-3. **Loan duration** strongly correlates with default: loans > 48 months default at 40%+ vs < 15% for short-term loans.
-4. **Young borrowers** (under 25) default significantly more than those aged 35–50.
-5. **Debt-to-income ratio** is a reliable engineered feature matching real-world bank policy thresholds.
+Key Findings from the Data
 
----
+Loan duration is the strongest predictor of default. Loans over 48 months
+default at more than double the rate of short-term loans.
 
-## 💼 Interview Talking Points
+Credit history is the second biggest factor. Borrowers with critical account
+history have an 85% default rate in the data.
 
-**Why Logistic Regression for credit risk?**  
-Banks operate under Basel III/IV and GDPR. Logistic Regression produces calibrated probabilities, has auditable coefficients (regulators can verify why a loan was rejected), and scales to millions of customers. It's the industry baseline — a traditional scorecard is essentially LR with binned variables.
+Younger borrowers under 25 default at roughly twice the rate of borrowers
+aged 35 to 50.
 
-**Why Random Forest?**  
-RF handles non-linear interactions (young age + high loan amount is riskier than either alone), is robust to outliers without preprocessing, and provides stable feature importance rankings used in regulatory model documentation.
+A debt-to-income ratio above 40% is a reliable signal for manual review,
+which aligns with the 35% DTI threshold used by most banks.
 
-**How do banks use these models in production?**  
-1. **Application scoring** — real-time API call on loan application
-2. **Behavioural scoring** — monthly re-score of existing portfolio
-3. **Regulatory capital** — PD feeds into Basel capital calculations
-4. **Model monitoring** — Population Stability Index, Gini drift alerts
+────────────────────────────────────────────────────────────────
 
----
+Risk Tiers
 
-## 🛠 Technology Stack
+    Low Risk       under 20% probability    approve at standard rate
+    Medium Risk    20 to 50% probability    approve with collateral or co-signer
+    High Risk      above 50% probability    reject or require guarantor
 
-- Python 3.10+
-- Pandas, NumPy
-- Scikit-learn
-- Matplotlib, Seaborn, Plotly
-- Streamlit
-- Jupyter Notebook
-- Joblib (model persistence)
+────────────────────────────────────────────────────────────────
 
----
+Tech Stack
 
-## 📄 License
+Python 3.11, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Plotly, Streamlit, Joblib
 
-MIT — free to use for portfolio, research, and commercial projects.
+Dataset: German Credit Data — UCI Machine Learning Repository
+https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data
+
+────────────────────────────────────────────────────────────────
+
+License: MIT
