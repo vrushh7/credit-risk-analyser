@@ -8,8 +8,7 @@ A production-quality machine learning system that predicts loan default probabil
 ![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.80-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-🚀 **Live Demo:** [Click to open dashboard]([https://vrushh7-credit-risk-analyser.streamlit.app](https://credit-risk-analyser-ml.streamlit.app/))
-
+🚀 **Live Demo:** [Click to open dashboard](https://credit-risk-analyser-ml.streamlit.app)
 ---
 
 ## 🖥️ Dashboard Preview
